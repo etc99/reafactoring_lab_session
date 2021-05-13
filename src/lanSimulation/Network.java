@@ -184,7 +184,7 @@ which should be treated by all nodes.
 				// just ignore
 			};
 			currentNode = currentNode.nextNode_;
-		} while (! packet.destination_.equals(currentNode.name_));
+		} while (! packet.getDestination_().equals(currentNode.name_));
 
 		try {
 			report.write(">>> Broadcast travelled whole token ring.\n\n");
@@ -236,8 +236,8 @@ Therefore #receiver sends a packet across the token ring network, until either
 			// just ignore
 		};
 		currentNode = startNode.nextNode_;
-		while ((! packet.destination_.equals(currentNode.name_))
-				& (! packet.origin_.equals(currentNode.name_))) {
+		while ((! packet.getDestination_().equals(currentNode.name_))
+				& (! packet.getOrigin_().equals(currentNode.name_))) {
 			try {
 				report.write("\tNode '");
 				report.write(currentNode.name_);
@@ -249,7 +249,7 @@ Therefore #receiver sends a packet across the token ring network, until either
 			currentNode = currentNode.nextNode_;
 		};
 
-		if (packet.destination_.equals(currentNode.name_)) {
+		if (packet.getDestination_().equals(currentNode.name_)) {
 			result = printDocument(currentNode, packet, report);
 		} else {
 			try {
@@ -271,17 +271,17 @@ Therefore #receiver sends a packet across the token ring network, until either
 
 		if (printer.type_ == Node.PRINTER) {
 			try {
-				if (document.message_.startsWith("!PS")) {
-					startPos = document.message_.indexOf("author:");
+				if (document.getMessage_().startsWith("!PS")) {
+					startPos = document.getMessage_().indexOf("author:");
 					if (startPos >= 0) {
-						endPos = document.message_.indexOf(".", startPos + 7);
-						if (endPos < 0) {endPos = document.message_.length();};
-						author = document.message_.substring(startPos + 7, endPos);};
-						startPos = document.message_.indexOf("title:");
+						endPos = document.getMessage_().indexOf(".", startPos + 7);
+						if (endPos < 0) {endPos = document.getMessage_().length();};
+						author = document.getMessage_().substring(startPos + 7, endPos);};
+						startPos = document.getMessage_().indexOf("title:");
 						if (startPos >= 0) {
-							endPos = document.message_.indexOf(".", startPos + 6);
-							if (endPos < 0) {endPos = document.message_.length();};
-							title = document.message_.substring(startPos + 6, endPos);};
+							endPos = document.getMessage_().indexOf(".", startPos + 6);
+							if (endPos < 0) {endPos = document.getMessage_().length();};
+							title = document.getMessage_().substring(startPos + 6, endPos);};
 							report.write("\tAccounting -- author = '");
 							report.write(author);
 							report.write("' -- title = '");
@@ -291,8 +291,8 @@ Therefore #receiver sends a packet across the token ring network, until either
 							report.flush();
 				} else {
 					title = "ASCII DOCUMENT";
-					if (document.message_.length() >= 16) {
-						author = document.message_.substring(8, 16);};
+					if (document.getMessage_().length() >= 16) {
+						author = document.getMessage_().substring(8, 16);};
 						report.write("\tAccounting -- author = '");
 						report.write(author);
 						report.write("' -- title = '");

@@ -38,14 +38,14 @@ public class LANTests extends TestCase {
 
 		packet = new Packet("c", "a");
 		assertEquals("message_",
-				packet.message_, "c");
+				packet.getMessage_(), "c");
 		assertEquals("destination_",
-				packet.destination_, "a");
+				packet.getDestination_(), "a");
 		assertEquals("origin_",
-				packet.origin_, "");
-		packet.origin_ = "o";
+				packet.getOrigin_(), "");
+		packet.setOrigin_("o");
 		assertEquals("origin_ (after setting)",
-				packet.origin_, "o");
+				packet.getOrigin_(), "o");
 	}
 
 	private boolean compareFiles (String filename1, String filename2) {

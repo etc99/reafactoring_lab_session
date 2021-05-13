@@ -26,32 +26,56 @@ public class Packet {
 	/**
     Holds the actual message to be send over the network.
 	 */
-	public String message_;
+	private String message_;
 	/**
     Holds the name of the Node which initiated the request.
 	 */
-	public String origin_;
+	private String origin_;
 	/**
     Holds the name of the Node which should receive the information.
 	 */
-	public String destination_;
+	private String destination_;
 
 	/**
 Construct a <em>Packet</em> with given #message and #destination.
 	 */
 	public Packet(String message, String destination) {
-		message_ = message;
-		origin_ = "";
-		destination_ = destination;
+		setMessage_(message);
+		setOrigin_("");
+		setDestination_(destination);
 	}
 
 	/**
 Construct a <em>Packet</em> with given #message, #origin and #receiver.
 	 */
 	public Packet(String message, String origin, String destination) {
-		message_ = message;
-		origin_ = origin;
-		destination_ = destination;
+		setMessage_(message);
+		setOrigin_(origin);
+		setDestination_(destination);
+	}
+
+	public String getMessage_() {
+		return message_;
+	}
+
+	public void setMessage_(String message_) {
+		this.message_ = message_;
+	}
+
+	public String getOrigin_() {
+		return origin_;
+	}
+
+	public void setOrigin_(String origin_) {
+		this.origin_ = origin_;
+	}
+
+	public String getDestination_() {
+		return destination_;
+	}
+
+	public void setDestination_(String destination_) {
+		this.destination_ = destination_;
 	}
 
 }
