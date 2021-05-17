@@ -75,13 +75,13 @@ Currently, the network looks as follows.
 		Node wsHans = new Node (Node.WORKSTATION, "Hans");
 		Node prAndy = new Node (Node.PRINTER, "Andy");
 
-		wsFilip.nextNode_ = n1;
-		n1.nextNode_ = wsHans;
-		wsHans.nextNode_ = prAndy;
-		prAndy.nextNode_ = wsFilip;
+		wsFilip.setNextNode_(n1);
+		n1.setNextNode_(wsHans);
+		wsHans.setNextNode_(prAndy);
+		prAndy.setNextNode_(wsFilip);
 
-		network.workstations_.put(wsFilip.name_, wsFilip);
-		network.workstations_.put(wsHans.name_, wsHans);
+		network.workstations_.put(wsFilip.getName_(), wsFilip);
+		network.workstations_.put(wsHans.getName_(), wsHans);
 		network.firstNode_ = wsFilip;
 
 		assert network.isInitialized();
@@ -109,7 +109,7 @@ Answer whether #receiver contains a workstation with the given name.
 		if (n == null) {
 			return false;
 		} else {
-			return n.type_ == Node.WORKSTATION;
+			return n.getType_() == Node.WORKSTATION;
 		}
 	};
 
@@ -135,16 +135,16 @@ A consistent token ring network
 		iter = workstations_.elements();
 		while (iter.hasMoreElements()) {
 			currentNode = (Node) iter.nextElement();
-			if (currentNode.type_ != Node.WORKSTATION) {return false;};
+			if (currentNode.getType_() != Node.WORKSTATION) {return false;};
 		};
 		//enumerate the token ring, verifying whether all workstations are registered
 		//also count the number of printers and see whether the ring is circular
 		currentNode = firstNode_;
-		while (! encountered.containsKey(currentNode.name_)) {
-			encountered.put(currentNode.name_, currentNode);
-			if (currentNode.type_ == Node.WORKSTATION) {workstationsFound++;};
-			if (currentNode.type_ == Node.PRINTER) {printersFound++;};
-			currentNode = currentNode.nextNode_;
+		while (! encountered.containsKey(currentNode.getName_())) {
+			encountered.put(currentNode.getName_(), currentNode);
+			if (currentNode.getType_() == Node.WORKSTATION) {workstationsFound++;};
+			if (currentNode.getType_() == Node.PRINTER) {printersFound++;};
+			currentNode = currentNode.getNextNode_();
 		};
 		if (currentNode != firstNode_) {return false;};//not circular
 		if (printersFound == 0) {return false;};//does not contain a printer
@@ -170,21 +170,21 @@ which should be treated by all nodes.
 		};
 
 		Node currentNode = firstNode_;
-		Packet packet = new Packet("BROADCAST", firstNode_.name_, firstNode_.name_);
+		Packet packet = new Packet("BROADCAST", firstNode_.getName_(), firstNode_.getName_());
 		do {
 			try {
 				report.write("\tNode '");
-				report.write(currentNode.name_);
+				report.write(currentNode.getName_());
 				report.write("' accepts broadcase packet.\n");
 				report.write("\tNode '");
-				report.write(currentNode.name_);
+				report.write(currentNode.getName_());
 				report.write("' passes packet on.\n");
 				report.flush();
 			} catch (IOException exc) {
 				// just ignore
 			};
-			currentNode = currentNode.nextNode_;
-		} while (! packet.getDestination_().equals(currentNode.name_));
+			currentNode = currentNode.getNextNode_();
+		} while (! packet.getDestination_().equals(currentNode.getName_()));
 
 		try {
 			report.write(">>> Broadcast travelled whole token ring.\n\n");
@@ -229,27 +229,27 @@ Therefore #receiver sends a packet across the token ring network, until either
 
 		try {
 			report.write("\tNode '");
-			report.write(startNode.name_);
+			report.write(startNode.getName_());
 			report.write("' passes packet on.\n");
 			report.flush();
 		} catch (IOException exc) {
 			// just ignore
 		};
-		currentNode = startNode.nextNode_;
-		while ((! packet.getDestination_().equals(currentNode.name_))
-				& (! packet.getOrigin_().equals(currentNode.name_))) {
+		currentNode = startNode.getNextNode_();
+		while ((! packet.getDestination_().equals(currentNode.getName_()))
+				& (! packet.getOrigin_().equals(currentNode.getName_()))) {
 			try {
 				report.write("\tNode '");
-				report.write(currentNode.name_);
+				report.write(currentNode.getName_());
 				report.write("' passes packet on.\n");
 				report.flush();
 			} catch (IOException exc) {
 				// just ignore
 			};
-			currentNode = currentNode.nextNode_;
+			currentNode = currentNode.getNextNode_();
 		};
 
-		if (packet.getDestination_().equals(currentNode.name_)) {
+		if (packet.getDestination_().equals(currentNode.getName_())) {
 			result = printDocument(currentNode, packet, report);
 		} else {
 			try {
@@ -269,7 +269,7 @@ Therefore #receiver sends a packet across the token ring network, until either
 		String title = "Untitled";
 		int startPos = 0, endPos = 0;
 
-		if (printer.type_ == Node.PRINTER) {
+		if (printer.getType_() == Node.PRINTER) {
 			try {
 				if (document.getMessage_().startsWith("!PS")) {
 					startPos = document.getMessage_().indexOf("author:");
@@ -335,20 +335,20 @@ Write a printable representation of #receiver on the given #buf.
 		assert isInitialized();
 		Node currentNode = firstNode_;
 		do {
-			switch (currentNode.type_) {
+			switch (currentNode.getType_()) {
 			case Node.NODE:
 				buf.append("Node ");
-				buf.append(currentNode.name_);
+				buf.append(currentNode.getName_());
 				buf.append(" [Node]");
 				break;
 			case Node.WORKSTATION:
 				buf.append("Workstation ");
-				buf.append(currentNode.name_);
+				buf.append(currentNode.getName_());
 				buf.append(" [Workstation]");
 				break;
 			case Node.PRINTER:
 				buf.append("Printer ");
-				buf.append(currentNode.name_);
+				buf.append(currentNode.getName_());
 				buf.append(" [Printer]");
 				break;
 			default:
@@ -356,7 +356,7 @@ Write a printable representation of #receiver on the given #buf.
 				break;
 			};
 			buf.append(" -> ");
-			currentNode = currentNode.nextNode_;
+			currentNode = currentNode.getNextNode_();
 		} while (currentNode != firstNode_);
 		buf.append(" ... ");
 	}
@@ -373,20 +373,20 @@ Write a HTML representation of #receiver on the given #buf.
 		buf.append("\n\n<UL>");
 		do {
 			buf.append("\n\t<LI> ");
-			switch (currentNode.type_) {
+			switch (currentNode.getType_()) {
 			case Node.NODE:
 				buf.append("Node ");
-				buf.append(currentNode.name_);
+				buf.append(currentNode.getName_());
 				buf.append(" [Node]");
 				break;
 			case Node.WORKSTATION:
 				buf.append("Workstation ");
-				buf.append(currentNode.name_);
+				buf.append(currentNode.getName_());
 				buf.append(" [Workstation]");
 				break;
 			case Node.PRINTER:
 				buf.append("Printer ");
-				buf.append(currentNode.name_);
+				buf.append(currentNode.getName_());
 				buf.append(" [Printer]");
 				break;
 			default:
@@ -394,7 +394,7 @@ Write a HTML representation of #receiver on the given #buf.
 				break;
 			};
 			buf.append(" </LI>");
-			currentNode = currentNode.nextNode_;
+			currentNode = currentNode.getNextNode_();
 		} while (currentNode != firstNode_);
 		buf.append("\n\t<LI>...</LI>\n</UL>\n\n</BODY>\n</HTML>\n");
 	}
@@ -410,27 +410,27 @@ Write an XML representation of #receiver on the given #buf.
 		buf.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n<network>");
 		do {
 			buf.append("\n\t");
-			switch (currentNode.type_) {
+			switch (currentNode.getType_()) {
 			case Node.NODE:
 				buf.append("<node>");
-				buf.append(currentNode.name_);
+				buf.append(currentNode.getName_());
 				buf.append("</node>");
 				break;
 			case Node.WORKSTATION:
 				buf.append("<workstation>");
-				buf.append(currentNode.name_);
+				buf.append(currentNode.getName_());
 				buf.append("</workstation>");
 				break;
 			case Node.PRINTER:
 				buf.append("<printer>");
-				buf.append(currentNode.name_);
+				buf.append(currentNode.getName_());
 				buf.append("</printer>");
 				break;
 			default:
 				buf.append("<unknown></unknown>");;
 				break;
 			};
-			currentNode = currentNode.nextNode_;
+			currentNode = currentNode.getNextNode_();
 		} while (currentNode != firstNode_);
 		buf.append("\n</network>");
 	}

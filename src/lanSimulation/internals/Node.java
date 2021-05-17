@@ -41,16 +41,16 @@ public class Node {
 	/**
     Holds the type of the Node.
 	 */
-	public byte type_;
+	private byte type_;
 	/**
     Holds the name of the Node.
 	 */
-	public String name_;
+	private String name_;
 	/**
     Holds the next Node in the token ring architecture.
     @see lanSimulation.internals.Node
 	 */
-	public Node nextNode_;
+	private Node nextNode_;
 
 	/**
 Construct a <em>Node</em> with given #type and #name.
@@ -58,9 +58,9 @@ Construct a <em>Node</em> with given #type and #name.
 	 */
 	public Node(byte type, String name) {
 		assert (type >= NODE) & (type <= PRINTER);
-		type_ = type;
-		name_ = name;
-		nextNode_ = null;
+		setType_(type);
+		setName_(name);
+		setNextNode_(null);
 	}
 
 	/**
@@ -69,9 +69,33 @@ Construct a <em>Node</em> with given #type and #name, and which is linked to #ne
 	 */
 	public Node(byte type, String name, Node nextNode) {
 		assert (type >= NODE) & (type <= PRINTER);
-		type_ = type;
-		name_ = name;
-		nextNode_ = nextNode;
+		setType_(type);
+		setName_(name);
+		setNextNode_(nextNode);
+	}
+
+	public byte getType_() {
+		return type_;
+	}
+
+	public void setType_(byte type_) {
+		this.type_ = type_;
+	}
+
+	public String getName_() {
+		return name_;
+	}
+
+	public void setName_(String name_) {
+		this.name_ = name_;
+	}
+
+	public Node getNextNode_() {
+		return nextNode_;
+	}
+
+	public void setNextNode_(Node nextNode_) {
+		this.nextNode_ = nextNode_;
 	}
 
 }
