@@ -41,10 +41,7 @@ public class LANSimulation {
 		printHTML(network, buf);
 
 		buf.setLength(0);
-		network.printXMLOn(buf);
-		System.out.println("---------------------------------XML------------------------------------------");
-		System.out.println(buf.toString());
-		System.out.println();
+		printXML(network, buf);
 
 		System.out.println("---------------------------------SCENARIOS------------------------------------------");
 		String document = "author: FILIP   Hello World";
@@ -109,6 +106,13 @@ public class LANSimulation {
 		System.out.println(); System.out.println(); System.out.println();
 		System.out.println("---------------------------------REPORT------------------------------------------");
 		System.out.println(report.toString());
+	}
+
+	private static void printXML(Network network, StringBuffer buf) {
+		network.printXMLOn(buf);
+		System.out.println("---------------------------------XML------------------------------------------");
+		System.out.println(buf.toString());
+		System.out.println();
 	}
 
 	private static void printHTML(Network network, StringBuffer buf) {
