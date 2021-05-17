@@ -43,11 +43,7 @@ public class LANSimulation {
 		buf.setLength(0);
 		printXML(network, buf);
 
-		System.out.println("---------------------------------SCENARIOS------------------------------------------");
-		String document = "author: FILIP   Hello World";
-		System.out.print("'Filip' prints '" + document + "' on 'Andy': ");
-		System.out.print(network.requestWorkstationPrintsDocument("Filip", document, "Andy", report));
-		System.out.println(" (expects true);");
+		String document = printScenarios(network, report);
 
 		System.out.print("'Filip' prints '" + document + "' on 'UnknownPrinter': ");
 		System.out.print(network.requestWorkstationPrintsDocument("Filip", document, "UnknownPrinter", report));
@@ -106,6 +102,15 @@ public class LANSimulation {
 		System.out.println(); System.out.println(); System.out.println();
 		System.out.println("---------------------------------REPORT------------------------------------------");
 		System.out.println(report.toString());
+	}
+
+	private static String printScenarios(Network network, StringWriter report) {
+		System.out.println("---------------------------------SCENARIOS------------------------------------------");
+		String document = "author: FILIP   Hello World";
+		System.out.print("'Filip' prints '" + document + "' on 'Andy': ");
+		System.out.print(network.requestWorkstationPrintsDocument("Filip", document, "Andy", report));
+		System.out.println(" (expects true);");
+		return document;
 	}
 
 	private static void printXML(Network network, StringBuffer buf) {
