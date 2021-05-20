@@ -20,24 +20,25 @@
 package lanSimulation.internals;
 
 /**
-A <em>Packet</em> represents a unit of information to be sent over the Local Area Network (LAN).
+ * A <em>Packet</em> represents a unit of information to be sent over the Local
+ * Area Network (LAN).
  */
 public class Packet {
 	/**
-    Holds the actual message to be send over the network.
+	 * Holds the actual message to be send over the network.
 	 */
 	private String message_;
 	/**
-    Holds the name of the Node which initiated the request.
+	 * Holds the name of the Node which initiated the request.
 	 */
 	private String origin_;
 	/**
-    Holds the name of the Node which should receive the information.
+	 * Holds the name of the Node which should receive the information.
 	 */
 	private String destination_;
 
 	/**
-Construct a <em>Packet</em> with given #message and #destination.
+	 * Construct a <em>Packet</em> with given #message and #destination.
 	 */
 	public Packet(String message, String destination) {
 		setMessage_(message);
@@ -46,7 +47,7 @@ Construct a <em>Packet</em> with given #message and #destination.
 	}
 
 	/**
-Construct a <em>Packet</em> with given #message, #origin and #receiver.
+	 * Construct a <em>Packet</em> with given #message, #origin and #receiver.
 	 */
 	public Packet(String message, String origin, String destination) {
 		setMessage_(message);
