@@ -227,25 +227,11 @@ Therefore #receiver sends a packet across the token ring network, until either
 
 		startNode = (Node) workstations_.get(workstation);
 
-		try {
-			report.write("\tNode '");
-			report.write(startNode.getName_());
-			report.write("' passes packet on.\n");
-			report.flush();
-		} catch (IOException exc) {
-			// just ignore
-		};
+		login(report, startNode);
 		currentNode = startNode.getNextNode_();
 		while ((! packet.getDestination_().equals(currentNode.getName_()))
 				& (! packet.getOrigin_().equals(currentNode.getName_()))) {
-			try {
-				report.write("\tNode '");
-				report.write(currentNode.getName_());
-				report.write("' passes packet on.\n");
-				report.flush();
-			} catch (IOException exc) {
-				// just ignore
-			};
+			login(report, currentNode);
 			currentNode = currentNode.getNextNode_();
 		};
 
@@ -262,6 +248,17 @@ Therefore #receiver sends a packet across the token ring network, until either
 		}
 
 		return result;
+	}
+
+	private void login(Writer report, Node currentNode) {
+		try {
+			report.write("\tNode '");
+			report.write(currentNode.getName_());
+			report.write("' passes packet on.\n");
+			report.flush();
+		} catch (IOException exc) {
+			// just ignore
+		};
 	}
 
 	private boolean printDocument (Node printer, Packet document, Writer report) {
