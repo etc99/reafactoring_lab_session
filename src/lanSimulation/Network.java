@@ -282,24 +282,15 @@ Therefore #receiver sends a packet across the token ring network, until either
 							endPos = document.getMessage_().indexOf(".", startPos + 6);
 							if (endPos < 0) {endPos = document.getMessage_().length();};
 							title = document.getMessage_().substring(startPos + 6, endPos);};
-							report.write("\tAccounting -- author = '");
-							report.write(author);
-							report.write("' -- title = '");
-							report.write(title);
-							report.write("'\n");
-							report.write(">>> Postscript job delivered.\n\n");
-							report.flush();
+							String jobDelivered = ">>> Postscript job delivered.\n\n";
+							printAccounting(report, author, title,jobDelivered);
 				} else {
 					title = "ASCII DOCUMENT";
+					
 					if (document.getMessage_().length() >= 16) {
 						author = document.getMessage_().substring(8, 16);};
-						report.write("\tAccounting -- author = '");
-						report.write(author);
-						report.write("' -- title = '");
-						report.write(title);
-						report.write("'\n");
-						report.write(">>> ASCII Print job delivered.\n\n");
-						report.flush();
+						String printJobDelivered = ">>> ASCII Print job delivered.\n\n";
+						printAccounting(report, author, title,printJobDelivered);
 				};
 			} catch (IOException exc) {
 				// just ignore
@@ -314,6 +305,16 @@ Therefore #receiver sends a packet across the token ring network, until either
 			};
 			return false;
 		}
+	}
+
+	private void printAccounting(Writer report, String author, String title, String variable) throws IOException {
+		report.write("\tAccounting -- author = '");
+		report.write(author);
+		report.write("' -- title = '");
+		report.write(title);
+		report.write("'\n");
+		report.write(variable);
+		report.flush();
 	}
 
 	/**
