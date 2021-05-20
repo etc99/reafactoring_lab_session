@@ -43,7 +43,32 @@ public class LANSimulation {
 		buf.setLength(0);
 		printXML(network, buf);
 
-		String document = printScenarios(network, report);
+		printScenarios(network, report);
+
+		try {
+			System.out.print("'UnknownWorkstation' prints 'does not matter' on 'does not matter': ");
+			System.out.print(network.requestWorkstationPrintsDocument("UnknownWorkstation",
+					"does not matter", "does not matter", report));
+			System.out.println(" (??? no exception);");
+		} catch (AssertionError e1) {
+			System.out.println("exception (as expected);");
+		};
+
+		System.out.print("BROADCAST REQUEST: ");
+		System.out.print(network.requestBroadcast(report));
+		System.out.println(" (expects true);");
+
+		System.out.println(); System.out.println(); System.out.println();
+		System.out.println("---------------------------------REPORT------------------------------------------");
+		System.out.println(report.toString());
+	}
+
+	private static void printScenarios(Network network, StringWriter report) {
+		System.out.println("---------------------------------SCENARIOS------------------------------------------");
+		String document = "author: FILIP   Hello World";
+		System.out.print("'Filip' prints '" + document + "' on 'Andy': ");
+		System.out.print(network.requestWorkstationPrintsDocument("Filip", document, "Andy", report));
+		System.out.println(" (expects true);");
 
 		System.out.print("'Filip' prints '" + document + "' on 'UnknownPrinter': ");
 		System.out.print(network.requestWorkstationPrintsDocument("Filip", document, "UnknownPrinter", report));
@@ -85,32 +110,6 @@ public class LANSimulation {
 		System.out.print("'Filip' prints '" + document + "' on 'Andy': ");
 		System.out.print(network.requestWorkstationPrintsDocument("Filip", document, "Andy", report));
 		System.out.println(" (expects true);");
-
-		try {
-			System.out.print("'UnknownWorkstation' prints 'does not matter' on 'does not matter': ");
-			System.out.print(network.requestWorkstationPrintsDocument("UnknownWorkstation",
-					"does not matter", "does not matter", report));
-			System.out.println(" (??? no exception);");
-		} catch (AssertionError e1) {
-			System.out.println("exception (as expected);");
-		};
-
-		System.out.print("BROADCAST REQUEST: ");
-		System.out.print(network.requestBroadcast(report));
-		System.out.println(" (expects true);");
-
-		System.out.println(); System.out.println(); System.out.println();
-		System.out.println("---------------------------------REPORT------------------------------------------");
-		System.out.println(report.toString());
-	}
-
-	private static String printScenarios(Network network, StringWriter report) {
-		System.out.println("---------------------------------SCENARIOS------------------------------------------");
-		String document = "author: FILIP   Hello World";
-		System.out.print("'Filip' prints '" + document + "' on 'Andy': ");
-		System.out.print(network.requestWorkstationPrintsDocument("Filip", document, "Andy", report));
-		System.out.println(" (expects true);");
-		return document;
 	}
 
 	private static void printXML(Network network, StringBuffer buf) {
