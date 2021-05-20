@@ -58,6 +58,10 @@ public class LANSimulation {
 		System.out.print(network.requestBroadcast(report));
 		System.out.println(" (expects true);");
 
+		printReport(report);
+	}
+
+	private static void printReport(StringWriter report) {
 		System.out.println(); System.out.println(); System.out.println();
 		System.out.println("---------------------------------REPORT------------------------------------------");
 		System.out.println(report.toString());
