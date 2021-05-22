@@ -219,7 +219,7 @@ public class Network {
 				report.write("\tNode '");
 				report.write(currentNode.getName_());
 				report.write("' accepts broadcase packet.\n");
-				writeNode(report, currentNode);
+				currentNode.writeNode(report);
 			} catch (IOException exc) {
 				// just ignore
 			}
@@ -279,7 +279,7 @@ public class Network {
 
 		do {
 			try {
-				writeNode(report, currentNode);
+				currentNode.writeNode(report);
 			} catch (IOException exc) {
 				// just ignore
 			}
@@ -303,13 +303,6 @@ public class Network {
 		}
 
 		return result;
-	}
-
-	private void writeNode(Writer report, Node currentNode) throws IOException {
-		report.write("\tNode '");
-		report.write(currentNode.getName_());
-		report.write("' passes packet on.\n");
-		report.flush();
 	}
 
 	private boolean printDocument(Node printer, Packet document, Writer report) {
