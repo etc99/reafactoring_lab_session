@@ -290,7 +290,7 @@ public class Network {
 				& (!packet.getOrigin_().equals(currentNode.getName_())));
 
 		if (packet.getDestination_().equals(currentNode.getName_())) {
-			result = printDocument(currentNode, packet, report);
+			result = packet.printDocument(currentNode, this, report);
 		} else {
 			try {
 				report.write(">>> Destinition not found, print job cancelled.\n\n");
@@ -305,65 +305,7 @@ public class Network {
 		return result;
 	}
 
-	private boolean printDocument(Node printer, Packet document, Writer report) {
-		String author = "Unknown";
-		String title = "Untitled";
-		int startPos = 0, endPos = 0;
-
-		if (printer.getType_() == Node.PRINTER) {
-			try {
-				if (document.getMessage_().startsWith("!PS")) {
-					startPos = document.getMessage_().indexOf("author:");
-					if (startPos >= 0) {
-						endPos = document.getMessage_().indexOf(".", startPos + 7);
-						if (endPos < 0) {
-							endPos = document.getMessage_().length();
-						}
-						;
-						author = document.getMessage_().substring(startPos + 7, endPos);
-					}
-					;
-					startPos = document.getMessage_().indexOf("title:");
-					if (startPos >= 0) {
-						endPos = document.getMessage_().indexOf(".", startPos + 6);
-						if (endPos < 0) {
-							endPos = document.getMessage_().length();
-						}
-						;
-						title = document.getMessage_().substring(startPos + 6, endPos);
-					}
-					;
-					String jobDelivered = ">>> Postscript job delivered.\n\n";
-					printAccounting(report, author, title, jobDelivered);
-				} else {
-					title = "ASCII DOCUMENT";
-
-					if (document.getMessage_().length() >= 16) {
-						author = document.getMessage_().substring(8, 16);
-					}
-					;
-					String printJobDelivered = ">>> ASCII Print job delivered.\n\n";
-					printAccounting(report, author, title, printJobDelivered);
-				}
-				;
-			} catch (IOException exc) {
-				// just ignore
-			}
-			;
-			return true;
-		} else {
-			try {
-				report.write(">>> Destinition is not a printer, print job cancelled.\n\n");
-				report.flush();
-			} catch (IOException exc) {
-				// just ignore
-			}
-			;
-			return false;
-		}
-	}
-
-	private void printAccounting(Writer report, String author, String title, String variable) throws IOException {
+	public void printAccounting(Writer report, String author, String title, String variable) throws IOException {
 		report.write("\tAccounting -- author = '");
 		report.write(author);
 		report.write("' -- title = '");
