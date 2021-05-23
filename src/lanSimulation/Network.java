@@ -170,7 +170,7 @@ public class Network {
 				printersFound++;
 			}
 			;
-			currentNode = currentNode.getNextNode_();
+			currentNode = send(currentNode);
 		}
 		;
 		if (currentNode != firstNode_) {
@@ -224,7 +224,7 @@ public class Network {
 				// just ignore
 			}
 			;
-			currentNode = currentNode.getNextNode_();
+			currentNode = send(currentNode);
 		} while (atDestination(currentNode, packet));
 
 		try {
@@ -234,6 +234,11 @@ public class Network {
 		}
 		;
 		return true;
+	}
+
+	private Node send(Node currentNode) {
+		currentNode = currentNode.getNextNode_();
+		return currentNode;
 	}
 
 	private boolean atDestination(Node currentNode, Packet packet) {
@@ -288,7 +293,7 @@ public class Network {
 				// just ignore
 			}
 			
-			currentNode = currentNode.getNextNode_();
+			currentNode = send(currentNode);
 
 		} while (atDestination(currentNode, packet)
 				& (!packet.getOrigin_().equals(currentNode.getName_())));
@@ -365,7 +370,7 @@ public class Network {
 			}
 			;
 			buf.append(" -> ");
-			currentNode = currentNode.getNextNode_();
+			currentNode = send(currentNode);
 		} while (currentNode != firstNode_);
 		buf.append(" ... ");
 	}
@@ -407,7 +412,7 @@ public class Network {
 			}
 			;
 			buf.append(" </LI>");
-			currentNode = currentNode.getNextNode_();
+			currentNode = send(currentNode);
 		} while (currentNode != firstNode_);
 		buf.append("\n\t<LI>...</LI>\n</UL>\n\n</BODY>\n</HTML>\n");
 	}
@@ -447,7 +452,7 @@ public class Network {
 				break;
 			}
 			;
-			currentNode = currentNode.getNextNode_();
+			currentNode = send(currentNode);
 		} while (currentNode != firstNode_);
 		buf.append("\n</network>");
 	}
