@@ -11,5 +11,23 @@ public class Workstation extends Node {
 		super(type, name, nextNode);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public void printOn(StringBuffer buf) {
+		buf.append("Workstation ");
+		buf.append(getName_());
+		buf.append(" [Workstation]");
+	}
+	
+	public void printHTMLOn(StringBuffer buf) {
+		buf.append("Workstation ");
+		buf.append(getName_());
+		buf.append(" [Workstation]");
+	}
+	
+	public void printXMLOn(StringBuffer buf) {
+		buf.append("<workstation>");
+		buf.append(getName_());
+		buf.append("</workstation>");
+	}
 
 }
