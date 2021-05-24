@@ -188,3 +188,11 @@ public class Node {
 	}
 
 }
+
+public class Workstation extends Node{
+	
+}
+
+public class Printer extends Node{
+	
+}
