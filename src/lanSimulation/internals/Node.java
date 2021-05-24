@@ -58,13 +58,8 @@ public class Node {
 
 	/**
 	 * Construct a <em>Node</em> with given #type and #name.
-	 * <p>
-	 * <strong>Precondition:</strong> (type >= NODE) & (type <= PRINTER);
-	 * </p>
 	 */
-	public Node(byte type, String name) {
-		assert (type >= NODE) & (type <= PRINTER);
-		setType_(type);
+	public Node(String name) {
 		setName_(name);
 		setNextNode_(null);
 	}
@@ -72,23 +67,10 @@ public class Node {
 	/**
 	 * Construct a <em>Node</em> with given #type and #name, and which is linked to
 	 * #nextNode.
-	 * <p>
-	 * <strong>Precondition:</strong> (type >= NODE) & (type <= PRINTER);
-	 * </p>
 	 */
-	public Node(byte type, String name, Node nextNode) {
-		assert (type >= NODE) & (type <= PRINTER);
-		setType_(type);
+	public Node(String name, Node nextNode) {
 		setName_(name);
 		setNextNode_(nextNode);
-	}
-
-	public byte getType_() {
-		return type_;
-	}
-
-	public void setType_(byte type_) {
-		this.type_ = type_;
 	}
 
 	public String getName_() {

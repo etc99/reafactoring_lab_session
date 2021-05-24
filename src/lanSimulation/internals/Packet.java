@@ -89,7 +89,7 @@ public class Packet {
 		String title = "Untitled";
 		int startPos = 0, endPos = 0;
 	
-		if (printer.getType_() == Node.PRINTER) {
+		if (printer instanceof Printer) {
 			try {
 				if (getMessage_().startsWith("!PS")) {
 					startPos = getMessage_().indexOf("author:");
@@ -140,6 +140,10 @@ public class Packet {
 			;
 			return false;
 		}
+	}
+
+	public String getDestination_() {
+		return destination_;
 	}
 
 }
