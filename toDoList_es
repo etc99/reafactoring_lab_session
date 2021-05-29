@@ -1,25 +1,25 @@
-Versión terminada 1.4: BROADCAST PACKET
+Versiï¿½n terminada 1.4: BROADCAST PACKET
 
 Subsecuencias de versiones:
 * version 1.0: BASIC DOCUMENT PRINTING
 Las workstations piden a la red token ring entregar un documento a un nodo que representa una impresora.
 * version 1.1: LOG PACKET SENDING
-Cada vez que un nodo envía un paquete al siguiente debe registrarse en un fichero de log.
+Cada vez que un nodo envï¿½a un paquete al siguiente debe registrarse en un fichero de log.
 * version 1.2: POSTSCRIPT PRINTING
-Un paquete puede empezar con "!PS", en tal caso las impresoras deberian reconocerlo como postcript e invocar a un trabajo de impresión en postcript.
+Un paquete puede empezar con "!PS", en tal caso las impresoras deberian reconocerlo como postcript e invocar a un trabajo de impresiï¿½n en postcript.
 * version 1.3: PRINT ACCOUNTING
-Las impresoras deberían registrar el autor y el título del documento que  esta siendo impreso.
-Para un documento ASCII el autor esta en los caracteres del 10 al 30 y el título es  "ASCII DOCUMENT".
-Para documentos postcript, el autor y el título del documento debería ser encontrados escaneando los caracteres en el documento, buscando las palabras clave "author:" hasta"."
+Las impresoras deberï¿½an registrar el autor y el tï¿½tulo del documento que  esta siendo impreso.
+Para un documento ASCII el autor esta en los caracteres del 10 al 30 y el tï¿½tulo es  "ASCII DOCUMENT".
+Para documentos postcript, el autor y el tï¿½tulo del documento deberï¿½a ser encontrados escaneando los caracteres en el documento, buscando las palabras clave "author:" hasta"."
 * VERSION 1.4: BROADCAST PACKET
-Introduce un nuevo tipo de paquete "BROADCAST" que debería ser aceptado por todos los nodos en la red. 
+Introduce un nuevo tipo de paquete "BROADCAST" que deberï¿½a ser aceptado por todos los nodos en la red. 
 * version 2.0: READ FROM FILE
-Lee la configuración de la red y los trabajos que deben ser impresos desde un fichero en formato XML.
+Lee la configuraciï¿½n de la red y los trabajos que deben ser impresos desde un fichero en formato XML.
 * version 2.1: GATEWAY NODE
-Introduce un nuevo nodo "gateway", el cuál pueda reconocer todas las direcciones en su subred actual mirando los 3 caracteres de la dirección.
-Si un paquete pasa a través del gateway y la dirección no esta en la subred actual, el mensaje es reenviado a través del gateway.  
+Introduce un nuevo nodo "gateway", el cuï¿½l pueda reconocer todas las direcciones en su subred actual mirando los 3 caracteres de la direcciï¿½n.
+Si un paquete pasa a travï¿½s del gateway y la direcciï¿½n no esta en la subred actual, el mensaje es reenviado a travï¿½s del gateway.  
 * version 2.1: COMPILE LIST OF NODES
-Usando el BROADCAST PACKET, el gateway envia periodicamente una petición a todos los nodos para que contesten con su nombre. Cada gateway puede verificar si los nodos tienen el prefijo correcto.
+Usando el BROADCAST PACKET, el gateway envia periodicamente una peticiï¿½n a todos los nodos para que contesten con su nombre. Cada gateway puede verificar si los nodos tienen el prefijo correcto.
 * version 3.0: GUI
-El sistema debería tener una GUI que debería mostrar una animación del sistema ejecutándose.
+El sistema deberï¿½a tener una GUI que deberï¿½a mostrar una animaciï¿½n del sistema ejecutï¿½ndose.
  
