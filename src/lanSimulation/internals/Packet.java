@@ -76,9 +76,7 @@ public class Packet {
 		this.origin_ = origin_;
 	}
 
-	public String getDestination_() {
-		return destination_;
-	}
+	
 
 	public void setDestination_(String destination_) {
 		this.destination_ = destination_;
